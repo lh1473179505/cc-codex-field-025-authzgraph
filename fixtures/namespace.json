@@ -1,0 +1,92 @@
+{
+  "types": {
+    "user": {
+      "relations": {}
+    },
+    "folder": {
+      "relations": {
+        "owner": {
+          "this": true
+        },
+        "editor": {
+          "union": [
+            {
+              "this": true
+            },
+            {
+              "computed": "owner"
+            }
+          ]
+        },
+        "viewer": {
+          "union": [
+            {
+              "this": true
+            },
+            {
+              "computed": "editor"
+            },
+            {
+              "tuple_to": {
+                "tupleset": "parent",
+                "computed": "viewer"
+              }
+            }
+          ]
+        },
+        "parent": {
+          "this": true
+        }
+      }
+    },
+    "doc": {
+      "relations": {
+        "owner": {
+          "this": true
+        },
+        "editor": {
+          "union": [
+            {
+              "this": true
+            },
+            {
+              "computed": "owner"
+            }
+          ]
+        },
+        "viewer": {
+          "union": [
+            {
+              "this": true
+            },
+            {
+              "computed": "editor"
+            },
+            {
+              "tuple_to": {
+                "tupleset": "parent",
+                "computed": "viewer"
+              }
+            }
+          ]
+        },
+        "parent": {
+          "this": true
+        },
+        "banned": {
+          "this": true
+        },
+        "active_viewer": {
+          "exclusion": {
+            "base": {
+              "computed": "viewer"
+            },
+            "subtract": {
+              "computed": "banned"
+            }
+          }
+        }
+      }
+    }
+  }
+}
